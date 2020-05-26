@@ -1,0 +1,118 @@
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{super()}}
+
+<style>
+    .appsize { width: 800px }
+</style>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+     equationNumbers: {  autoNumber: "AMS"  },
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js", "color.js"]
+  }
+});
+</script>
+<script type="text/javascript" src=
+"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+
+<!--
+{% block navbar %}
+<nav class="navbar navbar-default" role="navigation">
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+       {% for f in some_sequence %}
+       <li><a href="/{{f}}">{{f}}</a></li>
+       {% endfor %}
+       </ul>
+</div>
+</nav>
+{% endblock %}
+-->
+
+{% block content %}
+
+<div class="container">
+
+  <h2>WARRANTY REPAIR MODELING CALCULATOR</h2>
+  <P class="text-info">Developed by: Xiaoyang Liu Email:xiaoyang.liu@gmail.com </P>
+  <p>This page is to calculate the expected number of renewals. Click on the button to toggle between showing and hiding Theory content.</p>
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Theory</button>
+  <div id="demo" class="collapse">
+  Screened parts may fail during module-level screening and field operation. Upon
+failure, the failed parts are replaced by new parts from the screened population.
+The replacement process is a typical renewal process. 
+Then the expected number of renewals \( W(t) \) within time interval \( [0, t] \) is 
+\begin{equation}
+W(t)=F(t)+ \int_{0}^{t} W(t-x)f(x)\mathrm{d}x
+\end{equation}
+where \(f(x)\) is a Weibull distribution \begin{equation}
+F(x)=1.0-exp(-(x/\lambda)^k)
+\end{equation}
+ <P class="text-info">Ref: Page 425, LIFE CYCLE RELIABILITY ENGINEERING by Guangbin Yang 2007 John Wiley & Sons, Inc. </P>
+
+
+
+  </div>
+
+<form class="navbar-form navbar-top" method="post" action="">
+  <div class="form-group">
+  {% for field in form %}
+    <div class="row">
+     <div class="input-group appsize">
+      
+      <label class="col-sm-1 control-label">
+      <span class="input-group-addon"> \( {{ field.name }} \) </span>
+      </label>
+      
+      <div class="col-sm-4">
+      {{ field(class_="form-control") }}
+      </div>
+      
+      <div class="col-sm-4">
+        {{ field.label }}
+      </div>
+      
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <div class="col-sm-3">
+            <div style="color: red;">{{ error }}</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+     </div>
+    </div>
+  {% endfor %}
+<br/>
+<input type="submit" value="Compute" class="btn btn-primary">
+</form>
+
+{% if image != None %}
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\(W(t)\)</td>
+        <td>{{data}}</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+<img src="data:image/png;base64,{{ image }}"  width="500">
+{% endif %}
+
+</div>
+
+
+</html>
+{% endblock %}

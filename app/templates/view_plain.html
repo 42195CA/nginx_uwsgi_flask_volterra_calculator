@@ -1,0 +1,51 @@
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+     equationNumbers: {  autoNumber: "AMS"  },
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js", "color.js"]
+  }
+});
+</script>
+<script type="text/javascript"
+ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<h4>THIS IS A WARRANTY REPAIR MODELING
+This web page visualizes the function \(
+u(t) = Ae^{-bt}\sin (w t), \hbox{ for } t\in [0,T]
+\).</h4>
+
+
+<form method=post action="">
+<table> <!-- table with forms to the left and plot to the right -->
+<tr>
+	<td>
+	<table>
+  		{% for field in form %}
+    	<tr>
+    	<td>\( {{ field.name }} \)</td>
+    	<td>{{ field(size=12) }}</td>
+    	<td>{{ field.label }}</td>
+    	{% if field.errors %}
+      	<td><ul class=errors>
+      	{% for error in field.errors %}
+        	<li><font color="red">{{ error }}</font></li>
+      	{% endfor %}</ul></td>
+    	{% endif %}
+    	</tr>
+  	{% endfor %}
+	</table>
+	</td>
+
+	<td>
+{% if curve != None %}
+Answer: {{answer}}
+<img src="{{curve}}">
+{% endif %}
+</td>
+</tr>
+
+<tr>
+<td><p><input type=submit value=Compute></p></td>
+</tr>
+</table>
+</form>

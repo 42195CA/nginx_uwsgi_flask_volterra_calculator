@@ -1,0 +1,10 @@
+Flask
+numpy
+pandas
+matplotlib
+scipy
+more-itertools
+xlrd
+wtforms
+Flask-WTF
+flask_bootstrap
