@@ -29,3 +29,7 @@ ls all the running instances
 * stop and remove one instance if needed
 * $sudo docker stop flask_volterra
 * $sudo docker remove flask_volterra
+rm image
+* docker image ls
+* docker rmi imgName
+
